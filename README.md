@@ -1,28 +1,23 @@
 # CryptoLotto
 
-**CryptoLotto** est une application de loterie décentralisée (Node.js, Express, TypeORM) qui utilise MySQL via Docker.
+**CryptoLotto** est une application de loterie décentralisée (Node.js, Express, TypeORM) qui utilise PostgreSQL via Docker.
 
 ## Prérequis
 - [Node.js](https://nodejs.org/) (v16+ recommandé)
 - [Docker](https://www.docker.com/) installé et lancé
 
 ## Installation
-1. Clonez le dépôt :
-   ```bash
-   git clone https://github.com/AbdallahSlimane/cryptolotto-api.git
-   cd cryptolotto
-   ```
-2. Installez les dépendances :
+1. Installez les dépendances :
    ```bash
    npm install
    ```
 
-## Démarrer MySQL avec Docker
-1. Lancez la base de données MySQL (conteneur Docker) :
+## Démarrer PostgreSQL avec Docker
+1. Lancez la base de données PostgreSQL (conteneur Docker) :
    ```bash
-   npm run docker
+   docker compose up -d 
    ```
-   Cette commande crée un conteneur nommé **`cryptolotto-mysql`** exposant **MySQL** sur le port **3306**.
+   Cette commande crée un conteneur nommé **`cryptolotto`** exposant **PostgreSQL** sur le port **5423**.
 
 2. Vérifiez qu’il tourne :
    ```bash
@@ -30,18 +25,15 @@
    ```
 
 ## Lancer le serveur
-Une fois MySQL démarré :
+Une fois PostgreSQL démarré :
 ```bash
 npm run dev
 ```
 Le serveur écoute sur **http://localhost:3000**.
 
 ## Routes principales
-- **POST** `/lotteries` : Créer une loterie  
 - **GET** `/lotteries` : Lister toutes les loteries  
 - **GET** `/lotteries/:id` : Obtenir une loterie par son ID  
 - **GET** `/lotteries/active?active=true` : Lister les loteries actives (ou inactives avec `false`)  
-- **GET** `/lotteries/user/:metamaskId` : Lister les loteries d’un utilisateur  
-- **POST** `/lotteries/buy-ticket` : Acheter un ticket
-
+- **GET** `/lotteries/user/:metamaskId` : Lister les loteries d’un utilisateur
 ---
