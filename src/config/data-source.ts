@@ -1,18 +1,18 @@
 import { DataSource } from "typeorm";
 import { config } from 'dotenv';
-import dbConfig from "./db.config.js";
 import {Lottery} from "../models/lottery.js";
 import {Ticket} from "../models/ticket.js";
 
 config();
 
 export const db = new DataSource({
-    type: "mysql",
-    host: dbConfig.HOST,
-    port: process.env.MYSQL_PORT as unknown as number || dbConfig.PORT,
-    username: dbConfig.USER,
-    password: dbConfig.PASSWORD,
-    database: dbConfig.DATABASE,
+    type: "postgres",
+    host: process.env.HOST,
+    port: process.env.PORT as unknown as number,
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    ssl: true,
     synchronize: true,
     logging: false,
     entities: [Lottery, Ticket],
