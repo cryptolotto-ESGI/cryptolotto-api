@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { LotteryService } from "../services/lottery-service.js";
-import {  idParamValidator } from "../validators/lottery-validator.js";
+import {activeQueryValidator, idParamValidator} from "../validators/lottery-validator.js";
 
 export class LotteryController {
     private lotteryService: LotteryService;
@@ -39,19 +39,22 @@ export class LotteryController {
         }
     }
 
-    public async getActive(req: Request, res: Response): Promise<void> {
+    public async getByDescription(req: Request, res: Response): Promise<void> {
         try {
-            const { active } = req.query;
-            const isActive = active === 'true';
-            const lotteries = await this.lotteryService.findActive(isActive);
+            const { active, description } = await activeQueryValidator.validate(req.query);
+
+            const lotteries = await this.lotteryService.findActiveByDescription(description, active);
             res.status(200).json(lotteries);
         } catch (error) {
-            console.error("Error fetching active lotteries:", error);
+            console.error("Error fetching active lotteries by description:", error);
             if (error instanceof Error) {
-                res.status(500).json({ message: 'Error fetching active lotteries', error: error.message });
+                res.status(500).json({ message: 'Error fetching active lotteries by description', error: error.message });
+            } else {
+                res.status(500).json({ message: 'Error fetching active lotteries by description', error: String(error) });
             }
         }
     }
+
 
     public async getByUser(req: Request, res: Response): Promise<void> {
         try {
