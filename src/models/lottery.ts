@@ -16,13 +16,17 @@ export class Lottery {
     winnerAddress: string;
 
     @Column()
+    owner: string;
+
+    @Column()
     endDate: Date;
 
-    constructor(description: string, ticketPrice: number, endDate: Date, winnerAddress: string = '') {
+    constructor(description: string, ticketPrice: number, endDate: Date, winnerAddress: string = '', owner: string) {
         this.id = uuidv4();
         this.description = description;
         this.ticketPrice = ticketPrice;
         this.endDate = endDate;
         this.winnerAddress = winnerAddress;
+        this.owner = owner;
     }
 }
