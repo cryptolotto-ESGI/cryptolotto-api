@@ -55,7 +55,6 @@ export class LotteryController {
         }
     }
 
-
     public async getByUser(req: Request, res: Response): Promise<void> {
         try {
             const { metamaskId } = req.params;
