@@ -33,7 +33,7 @@ Le serveur écoute sur **http://localhost:3000**.
 
 ## Routes 
 - **GET** `/lotteries` Lister toutes les loteries. 
-- **GET** `/lotteries/:id` Obtenir une loterie par son ID. 
+- **GET** `/lotteries/:blockchainId` Obtenir une loterie par son ID. 
 - - **GET** `/lotteries/description` Lister les loteries filtrées par description et statut actif/inactif. Les paramètres de query `description` et `active` sont optionnels. 
 - **Exemples :** - Filtrer par description uniquement (ex. "maison") : 
 - ``` GET /lotteries/description?description=maison ``` 

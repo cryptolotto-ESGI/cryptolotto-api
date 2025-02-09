@@ -23,14 +23,14 @@ export class LotteryService {
     async findById(id: string): Promise<{ lottery: Lottery, totalTickets: number } | null> {
         try {
             const lottery = await this.lotteryRepository.findOne({
-                where: { id: id }
+                where: { blockchainId: id }
             });
 
             if (!lottery) {
-                throw new Error('Lottery not found');
+                return null;
             }
 
-            const tickets = await this.ticketRepository.findBy({ lottery: { id: lottery.id } });
+            const tickets = await this.ticketRepository.findBy({ lottery: { blockchainId: lottery.blockchainId } });
             return {lottery, totalTickets: tickets.length};
         } catch (error) {
             throw new Error('Error fetching lottery by ID');

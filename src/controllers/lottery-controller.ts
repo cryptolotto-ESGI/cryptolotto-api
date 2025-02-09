@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import { LotteryService } from "../services/lottery-service.js";
-import {activeQueryValidator, idParamValidator, ownerAddressValidator} from "../validators/lottery-validator.js";
+import {
+    activeQueryValidator,
+    idParamValidator,
+    ownerAddressValidator
+} from "../validators/lottery-validator.js";
 
 export class LotteryController {
     private lotteryService: LotteryService;
@@ -23,8 +27,8 @@ export class LotteryController {
 
     public async getById(req: Request, res: Response): Promise<void> {
         try {
-            const { id } = await idParamValidator.validate(req.params);
-            const result = await this.lotteryService.findById(id);
+            const { blockchainId } = await idParamValidator.validate(req.params);
+            const result = await this.lotteryService.findById(blockchainId);
 
             if (!result) {
                 res.status(404).json({ message: 'Lottery not found' });
