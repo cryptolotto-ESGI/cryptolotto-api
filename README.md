@@ -42,4 +42,5 @@ Le serveur écoute sur **http://localhost:3000**.
 - - Combiner les deux filtres (description et actif) :
 - ``` GET /lotteries/description?description=maison&active=true ```
 - - **GET** `/lotteries/user/:metamaskId` Lister les loteries dans lesquelles un utilisateur (identifié par son `metamaskId`) a participé.
+- - **GET** `/lotteries/owner` Lister les loteries créé (identifié par son `owner`).
 
