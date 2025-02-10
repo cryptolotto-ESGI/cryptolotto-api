@@ -30,7 +30,7 @@ export class LotteryService {
                 return null;
             }
 
-            const tickets = await this.ticketRepository.findBy({ lottery: { blockchainId: lottery.blockchainId } });
+            const tickets = await this.ticketRepository.findBy({ lottery: { id: lottery.id } });
             return {lottery, totalTickets: tickets.length};
         } catch (error) {
             throw new Error('Error fetching lottery by ID');
@@ -49,7 +49,7 @@ export class LotteryService {
         try {
             return await this.lotteryRepository
                 .createQueryBuilder("lottery")
-                .innerJoin("ticket", "ticket", "ticket.lotteryId = lottery.id")
+                .innerJoin("ticket", "ticket", "ticket.lottery_id = lottery.id")
                 .where("ticket.buyer = :buyer", {buyer: metamaskId})
                 .getMany();
         } catch (error) {
