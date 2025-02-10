@@ -30,9 +30,14 @@ export class LotteryService {
                 return null;
             }
 
-            const tickets = await this.ticketRepository.findBy({ lottery: { id: lottery.id } });
+            const tickets = await this.lotteryRepository
+                .createQueryBuilder("lottery")
+                .innerJoin("ticket", "ticket", "ticket.lottery_id = lottery.id")
+                .where("ticket.lottery_id = :lottery_id", {lottery_id: lottery.id})
+                .getMany();
             return {lottery, totalTickets: tickets.length};
         } catch (error) {
+            console.error(error)
             throw new Error('Error fetching lottery by ID');
         }
     }
